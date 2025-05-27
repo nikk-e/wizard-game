@@ -1,8 +1,8 @@
 extends Ability
 class_name DoubleJumpAbility
 
-func _init() -> void:
-	super._init(-1)
+func _init(_player: Player) -> void:
+	super._init(_player, -1)
 
-func ability(player: Player):
+func ability():
 	player.jump()
