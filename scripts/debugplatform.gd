@@ -12,8 +12,8 @@ func _draw():
 
 	if shape is RectangleShape2D:
 		var size = shape.extents * 2
-		draw_rect(Rect2(-shape.extents, size), Color(0, 1, 0, 0.3), true)
-		draw_rect(Rect2(-shape.extents, size), Color(0, 1, 0), false)
+		draw_rect(Rect2(-shape.extents, size), Color(0, 0, 0, 1), true)
+		draw_rect(Rect2(-shape.extents, size), Color(0, 0, 0), false)
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
