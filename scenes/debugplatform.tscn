@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bk5sbhw14y56"]
+
+[ext_resource type="Script" uid="uid://cgckylclwrsxq" path="res://scripts/debugplatform.gd" id="1_5yi1b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_le6kp"]
+size = Vector2(60, 5)
+
+[node name="Debugplatform" type="Node2D"]
+script = ExtResource("1_5yi1b")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_le6kp")

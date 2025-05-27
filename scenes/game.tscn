@@ -1,12 +1,9 @@
 [gd_scene load_steps=4 format=3 uid="uid://di6ria3x05ueu"]
 
 [ext_resource type="PackedScene" uid="uid://d0fsq7182447d" path="res://scenes/player.tscn" id="1_uwrxv"]
+[ext_resource type="PackedScene" uid="uid://bk5sbhw14y56" path="res://scenes/debugplatform.tscn" id="2_yqjtg"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_uwrxv"]
-size = Vector2(300, 20)
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_yqjtg"]
-size = Vector2(300, 20)
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_uwrxv"]
 
 [node name="Game" type="Node2D"]
 
@@ -17,11 +14,17 @@ position = Vector2(0, -1)
 position = Vector2(0, 3)
 zoom = Vector2(2, 2)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(0, 20)
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource("RectangleShape2D_uwrxv")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(0, 148)
+shape = SubResource("WorldBoundaryShape2D_uwrxv")
 
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
-texture = SubResource("PlaceholderTexture2D_yqjtg")
+[node name="Debugplatform" parent="." instance=ExtResource("2_yqjtg")]
+position = Vector2(112, 112)
+
+[node name="Debugplatform2" parent="." instance=ExtResource("2_yqjtg")]
+position = Vector2(19, 88)
+
+[node name="Debugplatform3" parent="." instance=ExtResource("2_yqjtg")]
+position = Vector2(-71, 66)
