@@ -25,7 +25,7 @@ func use():
 		canUse = false
 		cooldown_timer = COOLDOWN
 		ability()
-
+ 
 func get_cooldown() -> float:
 	return cooldown_timer
 
