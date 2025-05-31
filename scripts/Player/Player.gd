@@ -8,7 +8,7 @@ var abilities: Dictionary[String, Ability] = {}
 
 const SPEED = 200.0
 const JUMP_VELOCITY = -300.0
-const COYOTE_TIME = 0.05
+const COYOTE_TIME = 0.1
 var coyoteTimer = 0.0
 var pointDirection: Vector2 = Vector2(0, 0)
 
@@ -91,14 +91,29 @@ func _draw():
 		draw_line(gDLp0, Vector2(0,0), Color.RED, 1.0)
 	
 func _process(delta: float) -> void:
-	if abilities.has("dash"):
-		var dash: DashAbility = abilities["dash"]
-		if dash.inProgress():
-			sprite.animation = "dash"
-			sprite.rotation = dash.dashVelocity.angle()
-		else:
-			sprite.animation = "default"
-			sprite.rotation = 0
+	var inDash = abilities.has("dash") and abilities["dash"].inProgress()
+	var inGrapple = abilities.has("grapple") and abilities["grapple"].inProgress()
+	var animationName = "default"
+	
+	if velocity.x > 0:
+		sprite.flip_h = false
+	elif velocity.x < 0:
+		sprite.flip_h = true
+	
+	if velocity.y > 0:
+		animationName = "fall"
+	elif velocity.y < 0:
+		animationName = "jump"
+	
+	sprite.rotation = 0
+	if inDash:
+		sprite.animation = "dash"
+		sprite.flip_h = false
+		sprite.rotation = abilities["dash"].dashVelocity.angle()
+	elif inGrapple:
+		sprite.animation = animationName + "_grapple"
+	else:
+		sprite.animation = animationName
 			
 	grappleDebugLine = abilities.has("grapple") and abilities["grapple"].inProgress()
 	if grappleDebugLine:
