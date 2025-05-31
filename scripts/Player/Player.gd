@@ -12,6 +12,8 @@ const COYOTE_TIME = 0.1
 var coyoteTimer = 0.0
 var pointDirection: Vector2 = Vector2(0, 0)
 
+var onGround = false
+
 var last_physics_pos: Vector2
 var current_physics_pos: Vector2
 
@@ -41,7 +43,9 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+		onGround = false
 	else:
+		onGround = true
 		coyoteTimer = COYOTE_TIME
 		jumpable = true
 		if abilities.has("double_jump"):
@@ -114,6 +118,12 @@ func _process(delta: float) -> void:
 	if velocity.x > 0:
 		sprite.flip_h = false
 	elif velocity.x < 0:
+		sprite.flip_h = true
+		
+	if onGround and velocity.x > 0:
+		animationName = "run"
+	elif onGround and velocity.x < 0:
+		animationName = "run"
 		sprite.flip_h = true
 	
 	if velocity.y > 0:
