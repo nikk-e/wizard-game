@@ -12,6 +12,7 @@ distance = -2.0
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("player")]
 position = Vector2(-77, -27)
 zoom = Vector2(2, 2)
+position_smoothing_enabled = true
 script = ExtResource("2_lnu2h")
 player = NodePath("../Player")
 

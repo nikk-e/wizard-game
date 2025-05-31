@@ -7,6 +7,6 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta: float) -> void:
+func _process(delta: float) -> void:
 	if player:
-		global_position = global_position.lerp(player.global_position, 0.1)
+		global_position = player.global_position

@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 class_name Player
 
-@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@export var sprite: AnimatedSprite2D
 
 var abilities: Dictionary[String, Ability] = {}
 
@@ -11,6 +11,13 @@ const JUMP_VELOCITY = -300.0
 const COYOTE_TIME = 0.1
 var coyoteTimer = 0.0
 var pointDirection: Vector2 = Vector2(0, 0)
+
+var last_physics_pos: Vector2
+var current_physics_pos: Vector2
+
+func _ready():
+	last_physics_pos = global_position
+	current_physics_pos = global_position
 
 func _init() -> void:
 	var dja = DoubleJumpAbility.new(self)
@@ -25,6 +32,8 @@ func jump():
 	coyoteTimer = 0.0
 
 func _physics_process(delta: float) -> void:
+	last_physics_pos = current_physics_pos
+	
 	var world_mouse_pos = get_global_mouse_position()
 	pointDirection = (world_mouse_pos - global_position).normalized()
 	
@@ -82,6 +91,7 @@ func _physics_process(delta: float) -> void:
 		abilities[key].update(delta)
 
 	move_and_slide()
+	current_physics_pos = global_position
 	
 
 var grappleDebugLine = false
@@ -91,6 +101,12 @@ func _draw():
 		draw_line(gDLp0, Vector2(0,0), Color.RED, 1.0)
 	
 func _process(delta: float) -> void:
+	sprite.position = Vector2.ZERO 
+	var t = Engine.get_physics_interpolation_fraction()
+	var interp_pos = last_physics_pos.lerp(current_physics_pos, t)
+	sprite.global_position = interp_pos
+
+	
 	var inDash = abilities.has("dash") and abilities["dash"].inProgress()
 	var inGrapple = abilities.has("grapple") and abilities["grapple"].inProgress()
 	var animationName = "default"
