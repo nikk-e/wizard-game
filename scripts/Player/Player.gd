@@ -6,6 +6,8 @@ class_name Player
 
 var abilities: Dictionary[String, Ability] = {}
 
+var currentSpell: Spell
+
 const SPEED = 200.0
 const JUMP_VELOCITY = -300.0
 const COYOTE_TIME = 0.1
@@ -22,6 +24,8 @@ func _ready():
 	current_physics_pos = global_position
 
 func _init() -> void:
+	var testspell = TestProjectileSpell.new(self)
+	currentSpell = testspell
 	var dja = DoubleJumpAbility.new(self)
 	var da = DashAbility.new(self)
 	var ga = GrappleAbility.new(self)
@@ -85,25 +89,32 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_released("game_grapple"):
 			grapple.setHeld(false)
 		
-	
 	if Input.is_action_just_pressed("game_dash") and abilities.has("dash"):
 		abilities["dash"].use()
 		if abilities.has("grapple"):
 			abilities["grapple"].abort()
 	
+	if Input.is_action_just_pressed("game_primary") and currentSpell:
+		print("pressed")
+		currentSpell.use()
+	
 	for key in abilities:
 		abilities[key].update(delta)
+	
+	currentSpell.update(delta)
 
 	move_and_slide()
 	current_physics_pos = global_position
-	
+
 
 var grappleDebugLine = false
 var gDLp0: Vector2 = Vector2.INF
 func _draw():
 	if grappleDebugLine:
 		draw_line(gDLp0, Vector2(0,0), Color.RED, 1.0)
-	
+		
+
+
 func _process(delta: float) -> void:
 	sprite.position = Vector2.ZERO 
 	var t = Engine.get_physics_interpolation_fraction()

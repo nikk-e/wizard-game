@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://di6ria3x05ueu"]
+[gd_scene load_steps=23 format=3 uid="uid://di6ria3x05ueu"]
 
 [ext_resource type="PackedScene" uid="uid://d0fsq7182447d" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://dfcmwu3vda6hu" path="res://scripts/cameraFollowScript.gd" id="2_lnu2h"]
@@ -6,17 +6,19 @@
 [ext_resource type="Script" uid="uid://bajejuelijacd" path="res://scripts/areatest.gd" id="4_iywne"]
 [ext_resource type="Texture2D" uid="uid://petxrqhrnmyp" path="res://assets/whatdahell.png" id="4_lbhrr"]
 [ext_resource type="Shader" uid="uid://d4mwkn7vp0pl4" path="res://shaders/testshader.gdshader" id="5_p57ef"]
+[ext_resource type="PackedScene" uid="uid://dj3d6mbsnqyk4" path="res://scenes/Projectiles/projectile.tscn" id="7_u5sy4"]
 
 [sub_resource type="Environment" id="Environment_p57ef"]
 background_mode = 3
 tonemap_mode = 1
 glow_enabled = true
-glow_levels/1 = 1.8
-glow_levels/2 = 1.8
-glow_levels/3 = 1.9
-glow_levels/4 = 1.62
-glow_levels/5 = 0.0
-glow_hdr_threshold = 0.2
+glow_levels/1 = 0.87
+glow_levels/2 = 0.17
+glow_levels/3 = 0.28
+glow_levels/5 = 0.64
+glow_intensity = 2.99
+glow_strength = 1.11
+glow_hdr_scale = 1.21
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_uwrxv"]
 distance = -2.0
@@ -27,7 +29,7 @@ size = Vector2(35, 29)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u5sy4"]
 shader = ExtResource("5_p57ef")
 shader_parameter/glow_color = Color(1, 0.28, 0.28, 1)
-shader_parameter/glow_strength = 2.0
+shader_parameter/glow_strength = 3.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iywne"]
 atlas = ExtResource("4_lbhrr")
@@ -155,5 +157,11 @@ shape = SubResource("RectangleShape2D_iywne")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Area2D"]
 material = SubResource("ShaderMaterial_u5sy4")
+scale = Vector2(1.00361, 1)
 sprite_frames = SubResource("SpriteFrames_u5sy4")
 animation = &"appear"
+frame = 8
+frame_progress = 1.0
+
+[node name="Projectile" parent="." instance=ExtResource("7_u5sy4")]
+position = Vector2(-125, -43)
