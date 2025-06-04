@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=3 uid="uid://db35go47ietsf"]
+
+[ext_resource type="Script" uid="uid://cmu1x70r2wa6n" path="res://scripts/main_menu.gd" id="1_l6cm7"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_l6cm7")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+alignment = 1
+
+[node name="GameButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Start game"
+
+[node name="PlaygroundZenButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Zen"
+
+[node name="PlaygroundNikkeButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Nikke"
+
+[connection signal="pressed" from="VBoxContainer/GameButton" to="." method="_on_game_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/PlaygroundZenButton" to="." method="_on_playground_zen_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/PlaygroundNikkeButton" to="." method="_on_playground_nikke_button_pressed"]
