@@ -95,7 +95,6 @@ func _physics_process(delta: float) -> void:
 			abilities["grapple"].abort()
 	
 	if Input.is_action_just_pressed("game_primary") and currentSpell:
-		print("pressed")
 		currentSpell.use()
 	
 	for key in abilities:

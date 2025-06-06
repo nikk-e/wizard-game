@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cuhtw125arno8"
-path="res://.godot/imported/playersheet.png-c92c619d90a941f852ebb860587c57a8.ctex"
+uid="uid://bcmurh0m5y7u"
+path="res://.godot/imported/hubmidwallR.png-a6c07f227d2a3659fa5d55f93c4d58dc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/playersheet.png"
-dest_files=["res://.godot/imported/playersheet.png-c92c619d90a941f852ebb860587c57a8.ctex"]
+source_file="res://assets/Backgrounds/Hub/hubmidwallR.png"
+dest_files=["res://.godot/imported/hubmidwallR.png-a6c07f227d2a3659fa5d55f93c4d58dc.ctex"]
 
 [params]
 

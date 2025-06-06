@@ -13,11 +13,16 @@ config_version=5
 config/name="Wizard Game"
 run/main_scene="uid://db35go47ietsf"
 config/features=PackedStringArray("4.4", "Forward Plus")
+run/max_fps=141
 config/icon="res://icon.svg"
 
 [display]
 
 window/stretch/mode="viewport"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/parallax2d_preview/plugin.cfg")
 
 [input]
 
@@ -73,3 +78,4 @@ game_primary={
 
 textures/canvas_textures/default_texture_filter=0
 viewport/hdr_2d=true
+environment/defaults/default_clear_color=Color(0.133333, 0.109804, 0.101961, 1)
