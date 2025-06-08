@@ -11,11 +11,13 @@ func _process(delta: float) -> void:
 	pass
 
 func load_game_scene(scene_path: String) -> void:
-	var new_scene = load(scene_path)
-	if new_scene:
-		get_tree().change_scene_to_packed(new_scene)
+	var game_renderer = preload("res://scenes/game_renderer2.tscn").instantiate()
+	if game_renderer:
+		game_renderer.current_subscene_path = scene_path
+		get_tree().current_scene.queue_free()
+		get_tree().root.add_child(game_renderer)
 	else:
-		push_error("Could not load scene at: " + scene_path)
+		push_error("Could not load game renderer")
 
 func _on_game_button_pressed() -> void:
 	load_game_scene("res://scenes/hub_world.tscn")

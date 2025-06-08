@@ -1,12 +1,13 @@
 extends Camera2D
 
 @export var player: Node2D
-var topleft: Vector2 = Vector2(0, 0)
-var bottomright: Vector2 = Vector2(0, 0)
 @export var ceilingWorldBorder: Node2D
 @export var floorWorldBorder: Node2D
 @export var rightWorldBorder: Node2D
 @export var leftWorldBorder: Node2D
+
+var topleft: Vector2 = Vector2(0, 0)
+var bottomright: Vector2 = Vector2(0, 0)
 
 var limit: bool = false
 
