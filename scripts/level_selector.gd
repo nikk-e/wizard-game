@@ -1,7 +1,9 @@
 extends InteractableArea
+class_name LevelSelector
 
 @export var tracks: AnimatedSprite2D
 @export var metro: AnimatedSprite2D
+@onready var sprite: Sprite2D = $Selector
 var metrocalled = false
 var METRO_SPEED: float = 600
 var METRO_Y: float = -38
@@ -11,8 +13,11 @@ var lastmetropos: float = 102
 var metromoving: bool = false
 var metroOnStation: bool = false
 
+@export var levelSelectUI: LevelSelectUI
+
 func _ready():
 	super._ready()
+	levelSelectUI.levelSelector = self
 	if tracks:
 		tracks.visible = false
 		tracks.connect("animation_finished", _on_trackanim_finished)
@@ -23,8 +28,32 @@ func _ready():
 		metro.connect("animation_finished", _on_metroanim_finished)
 		
 
+func setShaderGlowColor(item: CanvasItem, color: Color):
+	(item.material as ShaderMaterial).set_shader_parameter("glow_color", color)
+
+func switchToOption(optionIndex: int):
+	var highlight: Color = Color(1.0, 1.0, 1.0)
+	if optionIndex == 0:
+		highlight = Color(1.0, 0.0, 0.0)
+	elif optionIndex == 1:
+		highlight = Color(0.0, 0.3, 1.0)
+	elif optionIndex == 2:
+		highlight = Color(1.0, 0.0, 1.0)
+	elif optionIndex == 3:
+		highlight = Color(0.0, 1.0, 0.0)
+	
+	setShaderGlowColor(sprite, highlight)
+	if tracks:
+		setShaderGlowColor(tracks, highlight)
+	if metro:
+		setShaderGlowColor(metro, highlight)
+	if !metrocalled:
+		callMetro()
+
 func callMetro():
 	metrocalled = true
+	metropos = -300
+	metro.position.x = metropos
 	if tracks:
 		tracks.visible = true
 		tracks.play("appear")
@@ -33,10 +62,16 @@ func callMetro():
 		metromoving = true
 		metroOnStation = false
 
-func interact(player: Player):
-	if !metrocalled:
-		callMetro()
-		
+func interact():
+	if levelSelectUI.visible == false:
+		levelSelectUI.visible = true
+		levelSelectUI.itemlist.grab_focus()
+	else:
+		levelSelectUI.enterSelected()
+
+func playerExited():
+	levelSelectUI.disappear()
+
 func _physics_process(delta: float) -> void:
 	if metrocalled:
 		lastmetropos = metropos

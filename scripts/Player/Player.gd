@@ -117,7 +117,7 @@ func _physics_process(delta: float) -> void:
 		print(world_mouse_pos)
 		
 	if Input.is_action_just_pressed("game_interact") and area_to_interact:
-		area_to_interact.interact(self)
+		area_to_interact.interact()
 	
 	for key in abilities:
 		abilities[key].update(delta)

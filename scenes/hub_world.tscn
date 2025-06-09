@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=4 uid="uid://bmafg8vxuchb2"]
+[gd_scene load_steps=58 format=4 uid="uid://bmafg8vxuchb2"]
 
 [ext_resource type="Script" uid="uid://dfcmwu3vda6hu" path="res://scripts/cameraFollowScript.gd" id="1_2ljrq"]
 [ext_resource type="Environment" uid="uid://bohds6lb1k670" path="res://environments/hub_world.tres" id="1_2paky"]
@@ -18,12 +18,10 @@
 [ext_resource type="Texture2D" uid="uid://cf6p27bi3ic8i" path="res://assets/hubstairdetail.png" id="4_rbxjo"]
 [ext_resource type="Shader" uid="uid://cw36bsj8156lt" path="res://shaders/broken_neon.gdshader" id="4_uh11d"]
 [ext_resource type="Texture2D" uid="uid://bgfy4yoc5epbi" path="res://assets/Backgrounds/Hub/Metro-sheet.png" id="5_0vhvd"]
-[ext_resource type="Script" uid="uid://bajejuelijacd" path="res://scripts/areatest.gd" id="13_anf4i"]
-[ext_resource type="Shader" uid="uid://d4mwkn7vp0pl4" path="res://shaders/testshader.gdshader" id="14_uh11d"]
-[ext_resource type="Texture2D" uid="uid://petxrqhrnmyp" path="res://assets/whatdahell.png" id="15_sblbo"]
 [ext_resource type="PackedScene" uid="uid://dprr5fpth0ur1" path="res://scenes/interactable_area.tscn" id="16_4l86p"]
 [ext_resource type="Script" uid="uid://br7c8tr1vnes5" path="res://scripts/level_selector.gd" id="17_k3nme"]
 [ext_resource type="Texture2D" uid="uid://84dsrot2ddn3" path="res://assets/Backgrounds/Hub/selector.png" id="18_k3nme"]
+[ext_resource type="PackedScene" uid="uid://o6yv0gtuvgn5" path="res://scenes/level_select_ui.tscn" id="22_0vhvd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0vhvd"]
 shader = ExtResource("3_2quuw")
@@ -254,6 +252,9 @@ shader_parameter/glow_strength = 4.0
 shader = ExtResource("3_2quuw")
 shader_parameter/glow_color = Color(0, 1, 0.568627, 1)
 shader_parameter/glow_strength = 6.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0vhvd"]
+size = Vector2(49.5, 29.5)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l774k"]
 texture = ExtResource("1_3jjef")
@@ -645,97 +646,6 @@ sources/0 = SubResource("TileSetAtlasSource_l774k")
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_2ljrq"]
 distance = -7.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yixcr"]
-size = Vector2(35, 29)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2quuw"]
-shader = ExtResource("14_uh11d")
-shader_parameter/glow_color = Color(1, 1, 1, 1)
-shader_parameter/glow_strength = 2.0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_iywne"]
-atlas = ExtResource("15_sblbo")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_u5sy4"]
-atlas = ExtResource("15_sblbo")
-region = Rect2(64, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gee14"]
-atlas = ExtResource("15_sblbo")
-region = Rect2(128, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0tnpc"]
-atlas = ExtResource("15_sblbo")
-region = Rect2(192, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vtaks"]
-atlas = ExtResource("15_sblbo")
-region = Rect2(256, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kvpfn"]
-atlas = ExtResource("15_sblbo")
-region = Rect2(320, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dinhu"]
-atlas = ExtResource("15_sblbo")
-region = Rect2(384, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kvuet"]
-atlas = ExtResource("15_sblbo")
-region = Rect2(448, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_trtic"]
-atlas = ExtResource("15_sblbo")
-region = Rect2(512, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_p57ef"]
-atlas = ExtResource("15_sblbo")
-region = Rect2(512, 0, 64, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_0ijvl"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_iywne")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_u5sy4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gee14")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0tnpc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vtaks")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kvpfn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dinhu")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kvuet")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_trtic")
-}],
-"loop": false,
-"name": &"appear",
-"speed": 12.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_p57ef")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
 [node name="HubWorld" type="Node2D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -832,19 +742,21 @@ z_index = -4
 position = Vector2(-310, -48)
 texture = ExtResource("4_rbxjo")
 
-[node name="LevelSelector" parent="DetailGroup" node_paths=PackedStringArray("tracks", "metro") instance=ExtResource("16_4l86p")]
-position = Vector2(250, -15)
+[node name="LevelSelector" parent="DetailGroup" node_paths=PackedStringArray("tracks", "metro", "levelSelectUI") instance=ExtResource("16_4l86p")]
+position = Vector2(175, -16)
 script = ExtResource("17_k3nme")
 tracks = NodePath("../../BackgroundGroup/Instation/TrackSprite")
 metro = NodePath("../../BackgroundGroup/Instation/Metro")
-
-[node name="CollisionShape2D" parent="DetailGroup/LevelSelector" index="0"]
-position = Vector2(-61.5, 0.375)
+levelSelectUI = NodePath("../../CanvasLayer/LevelSelectUI")
+tooltip = "Use"
 
 [node name="Selector" type="Sprite2D" parent="DetailGroup/LevelSelector"]
 material = SubResource("ShaderMaterial_sdnlf")
-position = Vector2(-59, -1)
 texture = ExtResource("18_k3nme")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetailGroup/LevelSelector"]
+position = Vector2(-5.25, 1.75)
+shape = SubResource("RectangleShape2D_0vhvd")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 z_index = 1
@@ -893,18 +805,6 @@ position = Vector2(-577, -410)
 rotation = 1.5708
 shape = SubResource("WorldBoundaryShape2D_2ljrq")
 
-[node name="Area2D" type="Area2D" parent="."]
-visible = false
-z_index = -1
-position = Vector2(-185, -43)
-script = ExtResource("13_anf4i")
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_yixcr")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Area2D"]
-material = SubResource("ShaderMaterial_2quuw")
-scale = Vector2(1.00361, 1)
-sprite_frames = SubResource("SpriteFrames_0ijvl")
-
-[editable path="DetailGroup/LevelSelector"]
+[node name="LevelSelectUI" parent="CanvasLayer" instance=ExtResource("22_0vhvd")]
