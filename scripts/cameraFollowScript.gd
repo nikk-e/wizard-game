@@ -1,6 +1,6 @@
 extends Camera2D
 
-@export var player: Node2D
+@export var player: Player
 @export var ceilingWorldBorder: Node2D
 @export var floorWorldBorder: Node2D
 @export var rightWorldBorder: Node2D
@@ -27,6 +27,9 @@ func _ready() -> void:
 	if leftWorldBorder:
 		limit = true
 		topleft.x = int(leftWorldBorder.global_position.x + viewport_size.x / 2)
+
+func _physics_process(delta: float) -> void:
+	player.cameraPosition = global_position
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

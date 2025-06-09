@@ -13,6 +13,7 @@ const JUMP_VELOCITY = -300.0
 const COYOTE_TIME = 0.1
 var coyoteTimer = 0.0
 var pointDirection: Vector2 = Vector2(0, 0)
+var cameraPosition: Vector2
 
 var onGround = false
 
@@ -31,6 +32,7 @@ func _pop_area(area: InteractableArea) -> void:
 	area_to_interact = _area_stack.back() if _area_stack.size() > 0 else null
 	
 func _ready():
+	cameraPosition = global_position
 	last_physics_pos = global_position
 	current_physics_pos = global_position
 
@@ -48,10 +50,15 @@ func jump():
 	velocity.y = JUMP_VELOCITY
 	coyoteTimer = 0.0
 
+func calculateWorldMousePosition() -> Vector2:
+	var pos_on_scaled = get_global_mouse_position()
+	# This will not work if the other viewport is renered at a scale other than 2x later on
+	return (pos_on_scaled+cameraPosition)/2.0 # <- because the renderer renders the viewport at 2x resolution compared to the world viewport
+
 func _physics_process(delta: float) -> void:
 	last_physics_pos = current_physics_pos
 	
-	var world_mouse_pos = get_global_mouse_position()
+	var world_mouse_pos = calculateWorldMousePosition()
 	pointDirection = (world_mouse_pos - global_position).normalized()
 	
 	var jumpable = false
@@ -107,6 +114,7 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("game_primary") and currentSpell:
 		currentSpell.use()
+		print(world_mouse_pos)
 		
 	if Input.is_action_just_pressed("game_interact") and area_to_interact:
 		area_to_interact.interact(self)
@@ -119,10 +127,12 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	current_physics_pos = global_position
 
-
+var mousePosDebugLine = false
 var grappleDebugLine = false
 var gDLp0: Vector2 = Vector2.INF
 func _draw():
+	if mousePosDebugLine:
+		draw_circle(pointDirection*100.0, 5, Color.RED)
 	if grappleDebugLine:
 		draw_line(gDLp0, Vector2(0,0), Color.RED, 1.0)
 		
