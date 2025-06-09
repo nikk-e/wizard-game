@@ -19,6 +19,17 @@ var onGround = false
 var last_physics_pos: Vector2
 var current_physics_pos: Vector2
 
+var area_to_interact : InteractableArea = null
+var _area_stack : Array[InteractableArea] = []
+
+func _push_area(area: InteractableArea) -> void:
+	_area_stack.append(area)
+	area_to_interact = area
+
+func _pop_area(area: InteractableArea) -> void:
+	_area_stack.erase(area)
+	area_to_interact = _area_stack.back() if _area_stack.size() > 0 else null
+	
 func _ready():
 	last_physics_pos = global_position
 	current_physics_pos = global_position
@@ -96,6 +107,9 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("game_primary") and currentSpell:
 		currentSpell.use()
+		
+	if Input.is_action_just_pressed("game_interact") and area_to_interact:
+		area_to_interact.interact(self)
 	
 	for key in abilities:
 		abilities[key].update(delta)

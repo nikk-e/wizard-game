@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bjx2eckmfc38h"]
 
-[ext_resource type="Script" uid="uid://bdwwlba2v2qmn" path="res://scenes/game_renderer_2.gd" id="1_4wpef"]
+[ext_resource type="Script" uid="uid://bdwwlba2v2qmn" path="res://scripts/game_renderer_2.gd" id="1_4wpef"]
 
 [sub_resource type="Environment" id="Environment_ftlt8"]
 background_mode = 3
