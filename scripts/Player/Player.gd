@@ -15,6 +15,7 @@ var coyoteTimer = 0.0
 var pointDirection: Vector2 = Vector2(0, 0)
 var cameraPosition: Vector2
 
+var lastInputAxis = 0
 var onGround = false
 
 var last_physics_pos: Vector2
@@ -62,7 +63,6 @@ func _physics_process(delta: float) -> void:
 	pointDirection = (world_mouse_pos - global_position).normalized()
 	
 	var jumpable = false
-	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 		onGround = false
@@ -72,6 +72,8 @@ func _physics_process(delta: float) -> void:
 		jumpable = true
 		if abilities.has("double_jump"):
 			abilities["double_jump"].restore()
+		if abilities.has("grapple"):
+			abilities["grapple"].abort()
 		
 	if (coyoteTimer > 0):
 		coyoteTimer -= delta
@@ -90,23 +92,33 @@ func _physics_process(delta: float) -> void:
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
+	var inputaxis = Input.get_axis("ui_left", "ui_right")
 	if abilities.has("grapple"):
 		var grapple: GrappleAbility = abilities["grapple"]
-		var inputaxis = Input.get_axis("ui_left", "ui_right")
-		if inputaxis:
+		if inputaxis and grapple.inProgress():
+			if abs(velocity.x) < SPEED and (grapple.grapplePoint.x-global_position.x)*inputaxis > 0:
+				velocity.x = inputaxis * SPEED
+		elif inputaxis:
 			velocity.x = inputaxis * SPEED
 		elif !grapple.inProgress():
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 		
-		if Input.is_action_just_pressed("game_grapple"):
-			if grapple.inProgress():
-				grapple.abort()
-			else:
+		if Input.is_action_just_pressed("game_grapple") and !grapple.inProgress():
+			if !(abilities.has("dash") and abilities["dash"].inProgress()):
 				grapple.use()
-				grapple.setHeld(true)
-		if Input.is_action_just_released("game_grapple"):
-			grapple.setHeld(false)
 		
+		var reelHeld = Input.is_action_pressed("game_grapple")
+		var unreelHeld = Input.is_action_pressed("game_grapple_unreel")
+		if reelHeld and !unreelHeld:
+			grapple.setReel(1)
+		elif unreelHeld and !reelHeld:
+			grapple.setReel(-1)
+		else:
+			grapple.setReel(0)
+	elif inputaxis:
+		velocity.x = inputaxis * SPEED
+	
+	
 	if Input.is_action_just_pressed("game_dash") and abilities.has("dash"):
 		abilities["dash"].use()
 		if abilities.has("grapple"):
@@ -114,7 +126,6 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("game_primary") and currentSpell:
 		currentSpell.use()
-		print(world_mouse_pos)
 		
 	if Input.is_action_just_pressed("game_interact") and area_to_interact:
 		area_to_interact.interact()
@@ -126,6 +137,7 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 	current_physics_pos = global_position
+	lastInputAxis = inputaxis
 
 var mousePosDebugLine = false
 var grappleDebugLine = false
@@ -134,7 +146,7 @@ func _draw():
 	if mousePosDebugLine:
 		draw_circle(pointDirection*100.0, 5, Color.RED)
 	if grappleDebugLine:
-		draw_line(gDLp0, Vector2(0,0), Color.RED, 1.0)
+		draw_line(gDLp0, to_local(sprite.global_position), Color.RED, 1.0)
 		
 
 

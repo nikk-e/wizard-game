@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=4 uid="uid://bmafg8vxuchb2"]
+[gd_scene load_steps=61 format=4 uid="uid://bmafg8vxuchb2"]
 
 [ext_resource type="Script" uid="uid://dfcmwu3vda6hu" path="res://scripts/cameraFollowScript.gd" id="1_2ljrq"]
 [ext_resource type="Environment" uid="uid://bohds6lb1k670" path="res://environments/hub_world.tres" id="1_2paky"]
@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://dprr5fpth0ur1" path="res://scenes/interactable_area.tscn" id="16_4l86p"]
 [ext_resource type="Script" uid="uid://br7c8tr1vnes5" path="res://scripts/level_selector.gd" id="17_k3nme"]
 [ext_resource type="Texture2D" uid="uid://84dsrot2ddn3" path="res://assets/Backgrounds/Hub/selector.png" id="18_k3nme"]
+[ext_resource type="Texture2D" uid="uid://eote2xfo6x0v" path="res://assets/Backgrounds/Hub/pillar.png" id="19_4l86p"]
 [ext_resource type="PackedScene" uid="uid://o6yv0gtuvgn5" path="res://scenes/level_select_ui.tscn" id="22_0vhvd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0vhvd"]
@@ -255,6 +256,16 @@ shader_parameter/glow_strength = 6.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0vhvd"]
 size = Vector2(49.5, 29.5)
+
+[sub_resource type="Gradient" id="Gradient_qhqgy"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.709459)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4l86p"]
+gradient = SubResource("Gradient_qhqgy")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l774k"]
 texture = ExtResource("1_3jjef")
@@ -757,6 +768,32 @@ texture = ExtResource("18_k3nme")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetailGroup/LevelSelector"]
 position = Vector2(-5.25, 1.75)
 shape = SubResource("RectangleShape2D_0vhvd")
+
+[node name="Pillars" type="Node2D" parent="DetailGroup"]
+
+[node name="Pillar" type="Sprite2D" parent="DetailGroup/Pillars"]
+position = Vector2(276, -103)
+texture = ExtResource("19_4l86p")
+
+[node name="PointLight2D" type="PointLight2D" parent="DetailGroup/Pillars/Pillar"]
+position = Vector2(0, -14)
+scale = Vector2(2.5, 2.5)
+color = Color(1, 0.859049, 0.774792, 1)
+energy = 0.98
+range_z_max = 0
+texture = SubResource("GradientTexture2D_4l86p")
+
+[node name="Pillar2" type="Sprite2D" parent="DetailGroup/Pillars"]
+position = Vector2(-121, -103)
+texture = ExtResource("19_4l86p")
+
+[node name="PointLight2D" type="PointLight2D" parent="DetailGroup/Pillars/Pillar2"]
+position = Vector2(0, -14)
+scale = Vector2(2.5, 2.5)
+color = Color(1, 0.859049, 0.774792, 1)
+energy = 0.98
+range_z_max = 0
+texture = SubResource("GradientTexture2D_4l86p")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 z_index = 1
