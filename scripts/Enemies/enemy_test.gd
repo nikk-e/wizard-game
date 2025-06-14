@@ -13,6 +13,8 @@ func _ready():
 	start_position = global_position
 	speed = 100
 	direction = Vector2.RIGHT
+	knockback_strength = 400
+	contact_damage = 10
 	
 func _physics_process(delta):
 	#last_physics_pos = current_physics_pos
@@ -36,13 +38,3 @@ func _physics_process(delta):
 	# Patrol logic
 	if global_position.distance_to(start_position) > patrol_distance:
 		direction = -direction
-
-func _on_detection_area_body_exited(body: Node2D) -> void:
-	if body.name == "Player":
-		player_detected = false
-		print("Player left.")
-
-func _on_detection_area_body_entered(body: Node2D) -> void:
-	if body.name == "Player":
-		player_detected = true
-		print("Player nearby!")

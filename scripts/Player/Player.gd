@@ -11,12 +11,20 @@ var currentSpell: Spell
 const SPEED = 200.0
 const JUMP_VELOCITY = -300.0
 const COYOTE_TIME = 0.1
+
+var max_health := 100
+var health := 100
+
 var coyoteTimer = 0.0
 var pointDirection: Vector2 = Vector2(0, 0)
 var cameraPosition: Vector2
 
 var lastInputAxis = 0
 var onGround = false
+
+var knockback_velocity := Vector2.ZERO
+var is_knockedback := false
+var knockback_timer := 0.2
 
 var last_physics_pos: Vector2
 var current_physics_pos: Vector2
@@ -50,6 +58,21 @@ func _init() -> void:
 func jump():
 	velocity.y = JUMP_VELOCITY
 	coyoteTimer = 0.0
+	
+func apply_knockback(from_position: Vector2, strength: float) -> void:
+	var direction = (global_position - from_position).normalized()
+	knockback_velocity = direction * strength
+	is_knockedback = true
+	knockback_timer = 0.2  # reset timer
+	
+func take_damage(damage: int) -> void:
+	health -= damage
+	if health <= 0:
+		_die()
+	print("player health: {0}/{1}".format([health, max_health]))
+	
+func _die() -> void:
+	queue_free()	# Should probably replace with an actual implementation, but this is pretty funny.
 
 func calculateWorldMousePosition() -> Vector2:
 	var pos_on_scaled = get_global_mouse_position()
@@ -134,6 +157,13 @@ func _physics_process(delta: float) -> void:
 		abilities[key].update(delta)
 	
 	currentSpell.update(delta)
+	
+	if is_knockedback:
+		velocity = knockback_velocity
+		knockback_timer -= delta
+		if knockback_timer <= 0:
+			is_knockedback = false
+			knockback_velocity = Vector2.ZERO
 
 	move_and_slide()
 	current_physics_pos = global_position
