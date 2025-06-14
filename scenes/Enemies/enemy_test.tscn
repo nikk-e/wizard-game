@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://b88pyvhivybvo"]
+
+[ext_resource type="PackedScene" uid="uid://bvlfpioco4c8r" path="res://scenes/Enemies/enemy.tscn" id="1_q3mx0"]
+[ext_resource type="Script" uid="uid://clp2uqw52ndej" path="res://scripts/Enemies/enemy_test.gd" id="2_mqs2e"]
+[ext_resource type="Texture2D" uid="uid://bpq2ebrhq303i" path="res://assets/enemy_test.png" id="3_26lyb"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2y7y5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_26lyb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2y7y5"]
+size = Vector2(50, 42)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_26lyb"]
+size = Vector2(52, 44)
+
+[node name="enemy_test" instance=ExtResource("1_q3mx0")]
+script = ExtResource("2_mqs2e")
+patrol_distance = 100.0
+jump_interval = 1.5
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+position = Vector2(-4.17233e-07, -2.29478e-06)
+scale = Vector2(0.115044, 0.121884)
+sprite_frames = SubResource("SpriteFrames_2y7y5")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("RectangleShape2D_2y7y5")
+
+[node name="CollisionShape2D" parent="DetectionArea" index="0"]
+shape = SubResource("RectangleShape2D_26lyb")

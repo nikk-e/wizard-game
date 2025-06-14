@@ -27,4 +27,4 @@ func _on_playground_zen_button_pressed() -> void:
 
 
 func _on_playground_nikke_button_pressed() -> void:
-	load_game_scene("res://scenes/playground_zen.tscn")
+	load_game_scene("res://scenes/playground_nikke.tscn")
