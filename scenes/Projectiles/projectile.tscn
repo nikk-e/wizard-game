@@ -4,11 +4,11 @@
 [ext_resource type="Script" uid="uid://bfcjjdfvc361c" path="res://scripts/Projectiles/Projectile.gd" id="1_q3m7n"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6aapk"]
-radius = 8.0
+radius = 8.22504
 
-[node name="Projectile" type="Area2D"]
-collision_layer = 2
-collision_mask = 2
+[node name="Projectile" type="Area2D" groups=["friendly_projectile"]]
+collision_layer = 8
+collision_mask = 5
 script = ExtResource("1_q3m7n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

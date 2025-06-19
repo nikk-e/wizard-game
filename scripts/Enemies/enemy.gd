@@ -37,14 +37,20 @@ func _die() -> void:
 
 
 func _on_detection_area_body_entered(body: Node2D) -> void:
-	if body.name == "Player":
+	var s := "Enemy collided with "
+	if body.is_in_group("player"):
+		s += "Player"
 		body.apply_knockback(global_position, knockback_strength)
 		body.take_damage(contact_damage)
 		player_detected = true
+	elif body.is_in_group("friendly_projectile"):
+		s += "Projectile"
+	elif body.is_in_group("enemy"):
+		s += "Other Enemy"
+	print(s)
 
 
 
 func _on_detection_area_body_exited(body: Node2D) -> void:
 	if body.name == "Player":
 		player_detected = false
-		print("Player left.")
