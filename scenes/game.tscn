@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bk5sbhw14y56" path="res://scenes/debugplatform.tscn" id="2_yqjtg"]
 [ext_resource type="Script" uid="uid://bajejuelijacd" path="res://scripts/areatest.gd" id="4_iywne"]
 [ext_resource type="Texture2D" uid="uid://petxrqhrnmyp" path="res://assets/whatdahell.png" id="4_lbhrr"]
-[ext_resource type="Shader" uid="uid://d4mwkn7vp0pl4" path="res://shaders/testshader.gdshader" id="5_p57ef"]
+[ext_resource type="Shader" uid="uid://d4mwkn7vp0pl4" path="res://resources/shaders/testshader.gdshader" id="5_p57ef"]
 [ext_resource type="PackedScene" uid="uid://dj3d6mbsnqyk4" path="res://scenes/Projectiles/projectile.tscn" id="7_u5sy4"]
 
 [sub_resource type="Environment" id="Environment_p57ef"]
