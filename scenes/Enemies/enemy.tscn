@@ -2,10 +2,11 @@
 
 [ext_resource type="Script" uid="uid://cpcmiq5205de5" path="res://scripts/Enemies/enemy.gd" id="2_vw3cy"]
 
-[node name="CharacterBody2D" type="CharacterBody2D" groups=["enemy"]]
+[node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("sprite") groups=["enemy"]]
 collision_layer = 4
 collision_mask = 5
 script = ExtResource("2_vw3cy")
+sprite = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 

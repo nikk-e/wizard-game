@@ -5,9 +5,6 @@ extends Enemy
 
 var start_position: Vector2
 var jump_timer := 0.0
-
-func _init():
-	health = 500
 	
 func _ready():
 	start_position = global_position
@@ -15,10 +12,9 @@ func _ready():
 	direction = Vector2.RIGHT
 	knockback_strength = 400
 	contact_damage = 10
+	health = MAX_HEALTH
 	
-func _physics_process(delta):
-	#last_physics_pos = current_physics_pos
-	
+func move(delta) -> void:
 	# Apply horizontal movement
 	velocity.x = direction.x * speed
 
@@ -34,7 +30,6 @@ func _physics_process(delta):
 	# Move the enemy
 	move_and_slide()
 
-	#current_physics_pos = global_position
 	# Patrol logic
 	if global_position.distance_to(start_position) > patrol_distance:
 		direction = -direction

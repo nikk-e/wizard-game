@@ -25,6 +25,7 @@ size = Vector2(52, 44)
 script = ExtResource("2_mqs2e")
 patrol_distance = 100.0
 jump_interval = 1.5
+MAX_HEALTH = 500
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 position = Vector2(-4.17233e-07, -2.29478e-06)

@@ -9,20 +9,32 @@ class_name Enemy
 var last_physics_pos: Vector2
 var current_physics_pos: Vector2
 
-@export var health: int
-@export var max_health: int
+var health: int
+@export var MAX_HEALTH: int
 @export var contact_damage := 0
 @export var knockback_strength := 0.0
 @export var gravity: float = 600
 @export var jump_force: float = -300
 var player_detected := false
 
+func _init() -> void:
+	pass
+
+func move(delta: float) -> void:
+	print("No movement function implemented in enemy!")
+	pass
+
+func _physics_process(delta: float) -> void:
+	last_physics_pos = global_position
+	move(delta)
+	current_physics_pos = global_position
+
 func _process(delta: float) -> void:
 	var t = Engine.get_physics_interpolation_fraction()
 	var interp_pos = last_physics_pos.lerp(current_physics_pos, t)
 		
 	if sprite:
-		sprite.position = to_local(interp_pos)
+		#sprite.position = to_local(interp_pos)
 		sprite.global_position = interp_pos
 	#elif defaultSprite:
 	#	defaultSprite.position = to_local(interp_pos)
@@ -47,7 +59,7 @@ func _on_detection_area_body_entered(body: Node2D) -> void:
 		s += "Projectile"
 	elif body.is_in_group("enemy"):
 		s += "Other Enemy"
-	print(s)
+	#print(s)
 
 
 

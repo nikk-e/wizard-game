@@ -32,7 +32,7 @@ func _process(delta: float) -> void:
 	var interp_pos = last_physics_pos.lerp(current_physics_pos, t)
 		
 	if sprite:
-		sprite.position = to_local(interp_pos)
+		#sprite.position = to_local(interp_pos)
 		sprite.global_position = interp_pos
 	elif defaultSprite:
 		defaultSprite.position = to_local(interp_pos)

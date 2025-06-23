@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://vlvx72vwaq7w"]
+[gd_scene load_steps=24 format=4 uid="uid://vlvx72vwaq7w"]
 
 [ext_resource type="Texture2D" uid="uid://dk1d0lnkm6bux" path="res://assets/bricktilemap.png" id="1_e03sa"]
 [ext_resource type="Script" uid="uid://dfcmwu3vda6hu" path="res://scripts/cameraFollowScript.gd" id="2_oc27j"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://bajejuelijacd" path="res://scripts/areatest.gd" id="4_uabxf"]
 [ext_resource type="Shader" uid="uid://d4mwkn7vp0pl4" path="res://resources/shaders/testshader.gdshader" id="5_738d3"]
 [ext_resource type="Texture2D" uid="uid://petxrqhrnmyp" path="res://assets/whatdahell.png" id="6_n5sa1"]
+[ext_resource type="PackedScene" uid="uid://b88pyvhivybvo" path="res://scenes/Enemies/enemy_test.tscn" id="7_738d3"]
 
 [sub_resource type="Environment" id="Environment_uabxf"]
 background_mode = 3
@@ -531,3 +532,9 @@ scale = Vector2(1.00361, 1)
 sprite_frames = SubResource("SpriteFrames_be1hr")
 
 [node name="SubViewport" type="SubViewport" parent="."]
+
+[node name="enemy_test" parent="." instance=ExtResource("7_738d3")]
+position = Vector2(-144, -132)
+
+[node name="enemy_test2" parent="." instance=ExtResource("7_738d3")]
+position = Vector2(-220, -153)
