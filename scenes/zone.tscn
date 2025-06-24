@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://edx2sruxj8h3"]
+
+[ext_resource type="Script" uid="uid://ii6ofnkyxaa8" path="res://scripts/zone.gd" id="1_g7a44"]
+
+[node name="Zone" type="Area2D" groups=["zone"]]
+collision_mask = 6
+script = ExtResource("1_g7a44")
