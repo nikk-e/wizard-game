@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dk1d0lnkm6bux"
-path="res://.godot/imported/bricktilemap.png-ad42ff9bf0e6cef670a3e524d4e75545.ctex"
+uid="uid://f6wulr2xrnfx"
+path="res://.godot/imported/platformtilemap.png-afe38f5055ae7468d13d460a91af846a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/bricktilemap.png"
-dest_files=["res://.godot/imported/bricktilemap.png-ad42ff9bf0e6cef670a3e524d4e75545.ctex"]
+source_file="res://assets/Tiles/platformtilemap.png"
+dest_files=["res://.godot/imported/platformtilemap.png-afe38f5055ae7468d13d460a91af846a.ctex"]
 
 [params]
 

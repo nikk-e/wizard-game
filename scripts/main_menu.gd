@@ -20,11 +20,11 @@ func load_game_scene(scene_path: String) -> void:
 		push_error("Could not load game renderer")
 
 func _on_game_button_pressed() -> void:
-	load_game_scene("res://scenes/hub_world.tscn")
+	load_game_scene("res://scenes/worlds/hub_world.tscn")
 
 func _on_playground_zen_button_pressed() -> void:
-	load_game_scene("res://scenes/playground_zen.tscn")
+	load_game_scene("res://scenes/worlds/playground_zen.tscn")
 
 
 func _on_playground_nikke_button_pressed() -> void:
-	load_game_scene("res://scenes/playground_nikke.tscn")
+	load_game_scene("res://scenes/worlds/playground_nikke.tscn")

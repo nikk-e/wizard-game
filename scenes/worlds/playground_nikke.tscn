@@ -1,7 +1,7 @@
 [gd_scene load_steps=24 format=4 uid="uid://3nsuo3f64e67"]
 
 [ext_resource type="PackedScene" uid="uid://b88pyvhivybvo" path="res://scenes/Enemies/enemy_test.tscn" id="1_gkhhu"]
-[ext_resource type="Texture2D" uid="uid://dk1d0lnkm6bux" path="res://assets/bricktilemap.png" id="1_rgo8l"]
+[ext_resource type="Texture2D" uid="uid://dk1d0lnkm6bux" path="res://assets/Tiles/bricktilemap.png" id="1_rgo8l"]
 [ext_resource type="Script" uid="uid://dfcmwu3vda6hu" path="res://scripts/cameraFollowScript.gd" id="2_itwef"]
 [ext_resource type="PackedScene" uid="uid://d0fsq7182447d" path="res://scenes/player.tscn" id="3_2v1xu"]
 [ext_resource type="Script" uid="uid://bajejuelijacd" path="res://scripts/areatest.gd" id="4_2v1xu"]

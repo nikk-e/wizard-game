@@ -5,3 +5,6 @@
 
 [node name="TestProjectile" instance=ExtResource("1_yktgs")]
 script = ExtResource("2_q2xg5")
+
+[node name="DefaultSprite" parent="." index="1"]
+z_index = 0

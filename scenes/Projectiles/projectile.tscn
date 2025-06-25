@@ -16,7 +16,6 @@ scale = Vector2(1.00168, 1.01721)
 shape = SubResource("CircleShape2D_6aapk")
 
 [node name="DefaultSprite" type="Sprite2D" parent="."]
-z_index = -2
 texture = ExtResource("1_c8fcr")
 
 [node name="Timer" type="Timer" parent="."]

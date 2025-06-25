@@ -11,3 +11,4 @@ func spell():
 	projectile.initPosition(player.global_position)
 	projectile.direction = player.pointDirection
 	player.get_parent().add_child(projectile)
+	
