@@ -30,7 +30,7 @@ player=""
 friendly_projectile=""
 enemy=""
 zone=""
-load_to_zone="Objects that are loaded into a zone and not the whole level"
+spawner="Spawns objects that are loaded into a zone and not the whole level"
 
 [input]
 

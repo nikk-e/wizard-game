@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://vlvx72vwaq7w"]
+[gd_scene load_steps=30 format=4 uid="uid://vlvx72vwaq7w"]
 
 [ext_resource type="Texture2D" uid="uid://dk1d0lnkm6bux" path="res://assets/bricktilemap.png" id="1_e03sa"]
 [ext_resource type="Script" uid="uid://dfcmwu3vda6hu" path="res://scripts/cameraFollowScript.gd" id="2_oc27j"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://b88pyvhivybvo" path="res://scenes/Enemies/enemy_test.tscn" id="7_738d3"]
 [ext_resource type="Script" uid="uid://dbv50smshtyd2" path="res://scripts/zone_manager.gd" id="8_n5sa1"]
 [ext_resource type="PackedScene" uid="uid://edx2sruxj8h3" path="res://scenes/zone.tscn" id="9_omylo"]
+[ext_resource type="PackedScene" uid="uid://w4aebdjaf14q" path="res://scenes/spawner.tscn" id="9_q5h81"]
 
 [sub_resource type="Environment" id="Environment_uabxf"]
 background_mode = 3
@@ -521,7 +522,7 @@ tile_set = SubResource("TileSet_oc27j")
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("player")]
 position = Vector2(5, -46)
-zoom = Vector2(0.5, 0.5)
+zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 script = ExtResource("2_oc27j")
 player = NodePath("../Player")
@@ -557,15 +558,6 @@ material = SubResource("ShaderMaterial_q5h81")
 scale = Vector2(1.00361, 1)
 sprite_frames = SubResource("SpriteFrames_be1hr")
 
-[node name="enemy_test" parent="." groups=["load_to_zone"] instance=ExtResource("7_738d3")]
-position = Vector2(570, -98)
-
-[node name="enemy_test3" parent="." groups=["load_to_zone"] instance=ExtResource("7_738d3")]
-position = Vector2(366, -625)
-
-[node name="enemy_test2" parent="." groups=["load_to_zone"] instance=ExtResource("7_738d3")]
-position = Vector2(-220, -153)
-
 [node name="ZoneManager" type="Node" parent="."]
 script = ExtResource("8_n5sa1")
 
@@ -578,6 +570,10 @@ visible = false
 position = Vector2(55, -7.5)
 shape = SubResource("RectangleShape2D_q5h81")
 
+[node name="Spawner" parent="Zone A" instance=ExtResource("9_q5h81")]
+position = Vector2(-226, 40)
+spawn_scene = ExtResource("7_738d3")
+
 [node name="Zone B" parent="." instance=ExtResource("9_omylo")]
 position = Vector2(448, -617)
 zone_name = "zone_b"
@@ -587,6 +583,14 @@ visible = false
 position = Vector2(-5, -28)
 shape = SubResource("RectangleShape2D_be1hr")
 
+[node name="Spawner" parent="Zone B" instance=ExtResource("9_q5h81")]
+position = Vector2(-348, 131)
+spawn_scene = ExtResource("7_738d3")
+
+[node name="Spawner2" parent="Zone B" instance=ExtResource("9_q5h81")]
+position = Vector2(226, 197)
+spawn_scene = ExtResource("7_738d3")
+
 [node name="Zone C" parent="." instance=ExtResource("9_omylo")]
 position = Vector2(771, -134)
 zone_name = "zone_c"
@@ -595,3 +599,7 @@ zone_name = "zone_c"
 visible = false
 position = Vector2(2.5, -56.5)
 shape = SubResource("RectangleShape2D_xqdr5")
+
+[node name="Spawner" parent="Zone C" instance=ExtResource("9_q5h81")]
+position = Vector2(-243, 13)
+spawn_scene = ExtResource("7_738d3")

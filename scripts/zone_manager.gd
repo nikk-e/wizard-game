@@ -8,10 +8,10 @@ class_name ZoneManager
 # Currently active zones (entered by player)
 var active_zones: Dictionary[String, bool] = {}
 
-# zone_name -> Set of objects in that zone
-var zone_original_contents: Dictionary[String, Dictionary]= {}
+# zone_name -> Set of spawners in that zone
+var zone_spawners: Dictionary[String, Array]= {}
 
-# object -> Set of zone names it's currently inside
+# object (instance) -> Set of zone names it's currently inside
 var object_current_zones: Dictionary[Node, Dictionary] = {}
 
 func _ready():
@@ -20,31 +20,22 @@ func _ready():
 		zone.connect("player_exited_zone", _on_player_exited_zone)
 		zone.connect("object_entered_zone", _on_object_entered_zone)
 		zone.connect("object_exited_zone", _on_object_exited_zone)
-		register_zone(zone.zone_name)
+		register_zone(zone)
+			
 
 func _on_player_entered_zone(zone_name: String) -> void:
 	print("Enter ", zone_name)
 	
 	active_zones[zone_name] = true
-	for obj in zone_original_contents[zone_name].keys():
-		if not is_instance_valid(obj):
-			continue
-		if obj.get_parent() == null:
-			get_tree().root.add_child(obj)
+	for spn: Spawner in zone_spawners[zone_name]:
+		spn.spawn_if_needed()
 
 func _on_player_exited_zone(zone_name: String) -> void:
 	print("Exit ", zone_name) 
 	
 	active_zones.erase(zone_name)
-	for obj in zone_original_contents[zone_name].keys():
-		if not is_instance_valid(obj):
-			object_current_zones.erase(obj)
-			continue
-		if not object_current_zones.has(obj):
-			continue
-		if not is_object_in_active_zone(obj):
-			obj.queue_free()
-			object_current_zones.erase(obj)
+	for spn: Spawner in zone_spawners[zone_name]:
+		spn.despawn_if_needed()
 
 func is_object_in_active_zone(obj: Node) -> bool:
 	for z_n in active_zones.keys():
@@ -52,17 +43,20 @@ func is_object_in_active_zone(obj: Node) -> bool:
 			return true
 	return false
 	
-func register_zone(zone_name: String):
-	print("Register zone ", zone_name)
-	if not zone_original_contents.has(zone_name):
-		zone_original_contents[zone_name] = {}
+func register_zone(zone: Zone):
+	print("Register zone ", zone.zone_name)
+	if not zone_spawners.has(zone.zone_name):
+		zone_spawners[zone.zone_name] = []
+	for spn in zone.get_children():
+		if spn is Spawner:
+			zone_spawners[zone.zone_name].append(spn)
 
-func register_object(obj: Node, zone_name: String):
-	print("Register object ", obj.name, " to ", zone_name)
-	if not zone_original_contents.has(zone_name):
-		zone_original_contents[zone_name] = {}
-	if not zone_original_contents[zone_name].has(obj):
-		zone_original_contents[zone_name][obj] = true
+func register_spawner(spn: Node, zone_name: String):
+	print("Register spawner ", spn.name, " to ", zone_name)
+	if not zone_spawners.has(zone_name):
+		zone_spawners[zone_name] = []
+	if not zone_spawners[zone_name].has(spn):
+		zone_spawners[zone_name].append(spn)
 
 func _on_object_entered_zone(obj: Node, zone_name: String):
 	print("Object ", obj, " entered ", zone_name)
