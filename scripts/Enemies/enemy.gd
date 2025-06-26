@@ -12,7 +12,7 @@ var current_physics_pos: Vector2
 var health: int
 @export var MAX_HEALTH: int
 @export var contact_damage := 0
-@export var knockback_strength := 0.0
+@export var knockback_force := Vector2(150, -150)
 @export var gravity: float = 600
 @export var jump_force: float = -300
 var player_detected := false
@@ -29,7 +29,7 @@ func _physics_process(delta: float) -> void:
 	last_physics_pos = global_position
 	move(delta)
 	if player_detected:
-		player.get_hit(contact_damage, knockback_strength, global_position)
+		player.get_hit(contact_damage, knockback_force, global_position)
 	current_physics_pos = global_position
 
 func _process(delta: float) -> void:
