@@ -16,6 +16,7 @@ var health: int
 @export var gravity: float = 600
 @export var jump_force: float = -300
 var player_detected := false
+var player: Player
 
 func _init() -> void:
 	pass
@@ -27,6 +28,8 @@ func move(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	last_physics_pos = global_position
 	move(delta)
+	if player_detected:
+		player.get_hit(contact_damage, knockback_strength, global_position)
 	current_physics_pos = global_position
 
 func _process(delta: float) -> void:
@@ -49,19 +52,9 @@ func _die() -> void:
 
 
 func _on_detection_area_body_entered(body: Node2D) -> void:
-	var s := "Enemy collided with "
 	if body.is_in_group("player"):
-		s += "Player"
-		body.apply_knockback(global_position, knockback_strength)
-		body.take_damage(contact_damage)
+		player = body
 		player_detected = true
-	elif body.is_in_group("friendly_projectile"):
-		s += "Projectile"
-	elif body.is_in_group("enemy"):
-		s += "Other Enemy"
-	#print(s)
-
-
 
 func _on_detection_area_body_exited(body: Node2D) -> void:
 	if body.name == "Player":

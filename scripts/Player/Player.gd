@@ -24,7 +24,9 @@ var onGround = false
 
 var knockback_velocity := Vector2.ZERO
 var is_knockedback := false
-var knockback_timer := 0.2
+var knockback_timer := 0.1
+var invul_timer := 0.0
+var invul := false
 
 var last_physics_pos: Vector2
 var current_physics_pos: Vector2
@@ -60,16 +62,24 @@ func jump():
 	coyoteTimer = 0.0
 	
 func apply_knockback(from_position: Vector2, strength: float) -> void:
-	var direction = (global_position - from_position).normalized()
-	knockback_velocity = direction * strength
-	is_knockedback = true
-	knockback_timer = 0.2  # reset timer
+	if not invul:
+		var direction = (global_position - from_position).normalized()
+		knockback_velocity = direction * strength
+		is_knockedback = true
+		knockback_timer = 0.1  # reset timer
+		invul = true
+		invul_timer = 0.1
 	
 func take_damage(damage: int) -> void:
-	health -= damage
-	if health <= 0:
-		_die()
+	if not invul:
+		health -= damage
+		if health <= 0:
+			_die()
 	print("player health: {0}/{1}".format([health, max_health]))
+
+func get_hit(damage: int, strength: float, from_position: Vector2) -> void:
+	take_damage(damage)
+	apply_knockback(from_position, strength)
 	
 func _die() -> void:
 	queue_free()	# Should probably replace with an actual implementation, but this is pretty funny.
@@ -164,6 +174,11 @@ func _physics_process(delta: float) -> void:
 		if knockback_timer <= 0:
 			is_knockedback = false
 			knockback_velocity = Vector2.ZERO
+	
+	if invul:
+		invul_timer -= delta
+		if invul_timer <= 0:
+			invul = false
 
 	move_and_slide()
 	current_physics_pos = global_position

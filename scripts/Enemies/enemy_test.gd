@@ -8,10 +8,6 @@ var jump_timer := 0.0
 	
 func _ready():
 	start_position = global_position
-	speed = 100
-	direction = Vector2.RIGHT
-	knockback_strength = 400
-	contact_damage = 10
 	health = MAX_HEALTH
 	
 func move(delta) -> void:
