@@ -223,10 +223,11 @@ func _process(delta: float) -> void:
 	var inGrapple = abilities.has("grapple") and abilities["grapple"].inProgress()
 	var animationName = "default"
 	
-	if velocity.x > 0:
-		sprite.flip_h = false
-	elif velocity.x < 0:
-		sprite.flip_h = true
+	if not is_knockedback:
+		if velocity.x > 0:
+			sprite.flip_h = false
+		elif velocity.x < 0:
+			sprite.flip_h = true
 		
 	if onGround and velocity.x > 0:
 		animationName = "run"
