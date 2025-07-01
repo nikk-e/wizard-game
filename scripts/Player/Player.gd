@@ -22,10 +22,6 @@ var cameraPosition: Vector2
 var lastInputAxis = 0
 var onGround = false
 
-#var knockback_velocity := Vector2.ZERO
-var in_hitstun := false
-var hitstun_timer := 0.0
-
 const knockback_duration := 0.3
 var is_knockedback := false
 var knockback_timer := 0.0
@@ -124,12 +120,21 @@ func _physics_process(delta: float) -> void:
 		jumpable = true
 	
 	var inputaxis = Input.get_axis("ui_left", "ui_right")
-
+		
 	if invul:
+		invul_flash_timer -= delta
+		if invul_flash_timer <= 0:
+			invul_flash_timer = invul_flash_interval
+			# Toggle sprite visibility
+			if sprite.modulate.a == 1.0:
+				sprite.modulate.a = 0.3  # Semi-transparent
+			else:
+				sprite.modulate.a = 1.0
 		invul_timer -= delta
 		if invul_timer <= 0:
 			invul = false
-	
+			sprite.modulate.a = 1.0  # Reset to normal when not invulnerable		
+		
 	if is_knockedback:
 		knockback_timer -= delta
 		if knockback_timer <= 0:
@@ -248,17 +253,5 @@ func _process(delta: float) -> void:
 	if grappleDebugLine:
 		var grapple: GrappleAbility = abilities["grapple"]
 		gDLp0 = grapple.grapplePoint - position
-	
-	if invul:
-		invul_flash_timer -= delta
-		if invul_flash_timer <= 0:
-			invul_flash_timer = invul_flash_interval
-			# Toggle sprite visibility
-			if sprite.modulate.a == 1.0:
-				sprite.modulate.a = 0.3  # Semi-transparent
-			else:
-				sprite.modulate.a = 1.0
-	else:
-		sprite.modulate.a = 1.0  # Reset to normal when not invulnerable
 
 	queue_redraw()
