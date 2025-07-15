@@ -203,6 +203,18 @@ texture = ExtResource("2_bv4lf")
 3:3/0/terrain_set = 0
 3:3/0/terrain = 0
 3:3/0/probability = 0.5
+0:4/0 = 0
+0:4/0/terrain_set = 0
+0:4/0/terrain = 2
+1:4/0 = 0
+1:4/0/terrain_set = 0
+1:4/0/terrain = 2
+2:4/0 = 0
+2:4/0/terrain_set = 0
+2:4/0/terrain = 2
+3:4/0 = 0
+3:4/0/terrain_set = 0
+3:4/0/terrain = 2
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jdeb6"]
 texture = ExtResource("3_mbene")
@@ -495,6 +507,8 @@ terrain_set_0/terrain_0/name = "Growth"
 terrain_set_0/terrain_0/color = Color(0.0438839, 0.56544, 0.438363, 1)
 terrain_set_0/terrain_1/name = "Vine"
 terrain_set_0/terrain_1/color = Color(0.214606, 0.425448, 0.174266, 1)
+terrain_set_0/terrain_2/name = "Grass"
+terrain_set_0/terrain_2/color = Color(0.46875, 0.5, 0.25, 1)
 sources/1 = SubResource("TileSetAtlasSource_r8wdr")
 sources/2 = SubResource("TileSetAtlasSource_goa7i")
 sources/3 = SubResource("TileSetAtlasSource_jdeb6")
