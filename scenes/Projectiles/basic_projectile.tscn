@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://1rhtx354wx8d"]
+
+[ext_resource type="PackedScene" uid="uid://dj3d6mbsnqyk4" path="res://scenes/Projectiles/projectile.tscn" id="1_pfggn"]
+[ext_resource type="Script" uid="uid://b4lpebt1tuuh5" path="res://scripts/Projectiles/basic_projectile.gd" id="2_32660"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yf8o6"]
+size = Vector2(13.9765, 1.96616)
+
+[node name="BasicProjectile" instance=ExtResource("1_pfggn")]
+script = ExtResource("2_32660")
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(-5.92041e-08, 0)
+shape = SubResource("RectangleShape2D_yf8o6")
+
+[node name="DefaultSprite" parent="." index="1"]
+position = Vector2(1.19209e-07, -1.49012e-08)
+scale = Vector2(0.875, 0.125)
+
+[node name="Timer" parent="." index="2"]
+wait_time = 0.1

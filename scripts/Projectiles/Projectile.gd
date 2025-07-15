@@ -34,8 +34,10 @@ func _process(delta: float) -> void:
 	if sprite:
 		#sprite.position = to_local(interp_pos)
 		sprite.global_position = interp_pos
+		sprite.rotation = direction.angle()
 	elif defaultSprite:
 		defaultSprite.position = to_local(interp_pos)
+		defaultSprite.rotation = direction.angle()
 
 func _on_body_entered(body):
 	print("Projectile Template Entered")

@@ -6,7 +6,8 @@ class_name Player
 
 var abilities: Dictionary[String, Ability] = {}
 
-var currentSpell: Spell
+var currentBasicSpell: Spell
+var spell_1: Spell
 
 const SPEED = 200.0
 const JUMP_VELOCITY = -300.0
@@ -53,8 +54,9 @@ func _ready():
 	current_physics_pos = global_position
 
 func _init() -> void:
-	var testspell = TestProjectileSpell.new(self)
-	currentSpell = testspell
+	var basic_spell = BasicSpell.new(self)
+	currentBasicSpell = basic_spell
+	spell_1 = TestProjectileSpell.new(self)
 	var dja = DoubleJumpAbility.new(self)
 	var da = DashAbility.new(self)
 	var ga = GrappleAbility.new(self)
@@ -186,8 +188,11 @@ func _physics_process(delta: float) -> void:
 			if abilities.has("grapple"):
 				abilities["grapple"].abort()
 		
-		if Input.is_action_just_pressed("game_primary") and currentSpell:
-			currentSpell.use()
+		if Input.is_action_just_pressed("game_primary") and currentBasicSpell:
+			currentBasicSpell.use()
+		
+		if Input.is_action_just_pressed("game_spell_1")	and spell_1:
+			spell_1.use()
 			
 		if Input.is_action_just_pressed("game_interact") and area_to_interact:
 			area_to_interact.interact()
@@ -195,7 +200,8 @@ func _physics_process(delta: float) -> void:
 		for key in abilities:
 			abilities[key].update(delta)
 		
-		currentSpell.update(delta)
+		currentBasicSpell.update(delta)
+		spell_1.update(delta)
 
 	move_and_slide()
 	current_physics_pos = global_position
