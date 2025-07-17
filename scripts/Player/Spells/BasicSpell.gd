@@ -4,7 +4,7 @@ class_name BasicSpell
 var BasicProjectileScene = preload("res://scenes/Projectiles/basic_projectile.tscn")
 
 func _init(_player: Player) -> void:
-	super._init(_player, 0.05)
+	super._init(_player, 0.2)
 
 func spell():
 	var projectile = BasicProjectileScene.instantiate() as BasicProjectile

@@ -12,13 +12,12 @@ var current_physics_pos: Vector2
 var health: int
 @export var MAX_HEALTH: int
 @export var contact_damage := 0
-@export var knockback_force := Vector2(150, -150)
+@export var contact_attack_level := AttackLevel.LEVEL_2
 @export var gravity: float = 600
 @export var jump_force: float = -300
 var player_detected := false
 var player: Player
 
-const knockback_duration := 0.3
 var is_knockedback := false
 var knockback_timer := 0.0
 
@@ -30,23 +29,22 @@ func move(delta: float) -> void:
 	pass
 
 #  Will probably change this later to give enemies a different kind of knockback from the player to feel more natural.
-func apply_knockback(from_position: Vector2, knockback_force: Vector2) -> void:
+func apply_knockback(from_position: Vector2, attack_level: AttackLevel) -> void:
 	is_knockedback = true
-	knockback_timer = knockback_duration
+	knockback_timer = attack_level.hitstun
 
 	var direction = sign(global_position.x - from_position.x) # 1 = hit from left, -1 = hit from right
-	print(direction)
-	velocity.x = direction * knockback_force.x
-	velocity.y = knockback_force.y # always up
+	velocity.x = direction * attack_level.knockback.x
+	velocity.y = attack_level.knockback.y # always up
 	
 func take_damage(damage: int) -> void:
 	health -= damage
 	if health <= 0:
 		_die()
 
-func get_hit(damage: int, knockback_force: Vector2, from_position: Vector2) -> void:
+func get_hit(damage: int, attack_level: AttackLevel, from_position: Vector2) -> void:
 	take_damage(damage)
-	apply_knockback(from_position, knockback_force)
+	apply_knockback(from_position, attack_level)
 	
 func _die() -> void:
 	queue_free()
@@ -65,7 +63,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		move(delta)
 	if player_detected:
-		player.get_hit(contact_damage, knockback_force, global_position)
+		player.get_hit(contact_damage, contact_attack_level, global_position)
 	current_physics_pos = global_position
 
 func _process(delta: float) -> void:

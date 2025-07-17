@@ -23,7 +23,6 @@ var cameraPosition: Vector2
 var lastInputAxis = 0
 var onGround = false
 
-const knockback_duration := 0.3
 var is_knockedback := false
 var knockback_timer := 0.0
 
@@ -68,14 +67,13 @@ func jump():
 	velocity.y = JUMP_VELOCITY
 	coyoteTimer = 0.0
 	
-func apply_knockback(from_position: Vector2, knockback_force: Vector2) -> void:
+func apply_knockback(from_position: Vector2, attack_level: AttackLevel) -> void:
 	is_knockedback = true
-	knockback_timer = knockback_duration
+	knockback_timer = attack_level.hitstun
 
 	var direction = sign(global_position.x - from_position.x) # 1 = hit from left, -1 = hit from right
-	print(direction)
-	velocity.x = direction * knockback_force.x
-	velocity.y = knockback_force.y # always up
+	velocity.x = direction * attack_level.knockback.x
+	velocity.y = attack_level.knockback.y # always up
 	
 func take_damage(damage: int) -> void:
 	health -= damage
@@ -83,12 +81,12 @@ func take_damage(damage: int) -> void:
 		_die()
 	print("player health: {0}/{1}".format([health, max_health]))
 
-func get_hit(damage: int, knockback_force: Vector2, from_position: Vector2) -> void:
+func get_hit(damage: int, attack_level: AttackLevel, from_position: Vector2) -> void:
 	if not invul:
 		invul = true
 		invul_timer = invul_duration
 		take_damage(damage)
-		apply_knockback(from_position, knockback_force)
+		apply_knockback(from_position, attack_level)
 	
 func _die() -> void:
 	queue_free()	# Should probably replace with an actual implementation, but this is pretty funny.
@@ -188,7 +186,7 @@ func _physics_process(delta: float) -> void:
 			if abilities.has("grapple"):
 				abilities["grapple"].abort()
 		
-		if Input.is_action_just_pressed("game_primary") and currentBasicSpell:
+		if Input.is_action_pressed("game_primary") and currentBasicSpell:
 			currentBasicSpell.use()
 		
 		if Input.is_action_just_pressed("game_spell_1")	and spell_1:
